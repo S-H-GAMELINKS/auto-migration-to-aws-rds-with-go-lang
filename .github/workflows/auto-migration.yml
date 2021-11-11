@@ -9,7 +9,7 @@ jobs:
   auto_migration:
     name: "Auto migration"
     runs-on: "ubuntu-latest"
-    service:
+    services:
       image: mysql:5.7
 
     steps:
