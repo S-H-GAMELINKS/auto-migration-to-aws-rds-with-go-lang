@@ -21,7 +21,7 @@ jobs:
 
       - name: backup mysql database
         run: |
-          mysqldump --skip-column-statistics --single-transaction --set-gtid-purged=OFF -u ${{ secrets.MYSQL_USERNAME }} -p${{ secrets.MYSQL_PASSWORD }} -h ${{ secrets.MYSQL_DATABASE_HOST }} ${{ secrets.MYSQL_DATABASE_NAME }} > ./backup/backup_`date '+%Y%m%d'`.dump
+          mysqldump --skip-column-statistics --single-transaction --set-gtid-purged=OFF -u ${{ secrets.MYSQL_USERNAME }} -p${{ secrets.MYSQL_PASSWORD }} -h ${{ secrets.MYSQL_DATABASE_HOST }} ${{ secrets.MYSQL_DATABASE_NAME }} > ./backup/backup_`date '+%Y%m%d%H:%M:%S'`.dump
 
       - name: Push backups to S3 Bucket
         uses: jakejarvis/s3-sync-action@master
