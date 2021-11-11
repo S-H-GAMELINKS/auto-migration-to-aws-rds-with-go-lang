@@ -43,4 +43,4 @@ jobs:
       - name: running migration
         run: |
           go get -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate
-          migrate -source file://migrate/ -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
+          migrate -source ./migrate -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
