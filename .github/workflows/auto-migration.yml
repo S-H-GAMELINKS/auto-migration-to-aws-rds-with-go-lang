@@ -37,6 +37,7 @@ jobs:
       - name: install migrate
         run: |
           ls -a
+          pwd
 
       - name: running migration
         run: |
