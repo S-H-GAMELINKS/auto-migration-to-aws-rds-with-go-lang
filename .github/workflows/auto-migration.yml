@@ -8,7 +8,7 @@ on:
 jobs:
   auto_migration:
     name: "Auto migration"
-    run-on: "ubuntu-latest"
+    runs-on: "ubuntu-latest"
 
     steps:
       - name: Set up Go 1.x
