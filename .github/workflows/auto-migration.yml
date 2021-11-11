@@ -11,30 +11,29 @@ jobs:
     run-on: "ubuntu-latest"
 
   steps:
-  - name: Set up Go 1.x
-    uses: actions/setup-go@v2
-    with:
-      go-version: ^1.16
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.16
 
-  - name: backup mysql database
-    uses: ./
-    with:
-      database_driver: mysql
-      database_username: ${{ secrets.MYSQL_USERNAME }}
-      database_password: ${{ secrets.MYSQL_PASSWORD }}
-      database_name: ${{ secrets.MYSQL_DATABASE_NAME }}
-      database_host: ${{ secrets.MYSQL_DATABASE_HOST }}
+    - name: backup mysql database
+      uses: ./
+      with:
+        database_driver: mysql
+        database_username: ${{ secrets.MYSQL_USERNAME }}
+        database_password: ${{ secrets.MYSQL_PASSWORD }}
+        database_name: ${{ secrets.MYSQL_DATABASE_NAME }}
+        database_host: ${{ secrets.MYSQL_DATABASE_HOST }}
 
-      storage_driver: s3
-      access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
-      secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-      storage_endpoint: ${{ secrets.AWS_BUCKET_ENDPOINT }}
-      storage_bucket: ${{ secrets.AWS_BUCKET_NAME }}
-      storage_region: ${{ secrets.AWS_BUCKET_REGION }}
-      storage_path: backup
+        storage_driver: s3
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
+        secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+        storage_endpoint: ${{ secrets.AWS_BUCKET_ENDPOINT }}
+        storage_bucket: ${{ secrets.AWS_BUCKET_NAME }}
+        storage_region: ${{ secrets.AWS_BUCKET_REGION }}
+        storage_path: backup
 
-  - name: running migration
-    run: |
-      go get -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate
-      migrate -source file://migrate/ -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
-
+    - name: running migration
+      run: |
+        go get -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate
+        migrate -source file://migrate/ -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
