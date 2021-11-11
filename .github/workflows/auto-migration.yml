@@ -38,6 +38,7 @@ jobs:
         run: |
           ls -a
           pwd
+          ls -a /home/runner/work/auto-migration-to-aws-rds-with-go-lang
 
       - name: running migration
         run: |
