@@ -36,11 +36,8 @@ jobs:
 
       - name: install migrate
         run: |
-          ls -a
-          pwd
-          ls -a /home/runner/work/auto-migration-to-aws-rds-with-go-lang
+          go get -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate
 
       - name: running migration
         run: |
-          go get -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate
-          migrate -source ./migrate -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
+          migrate -path ./migrate -database "mysql://${{ secrets.MYSQL_USERNAME }}:${{ secrets.MYSQL_PASSWORD }}@tcp(${{ secrets.MYSQL_DATABASE_HOST }})/${{ secrets.MYSQL_DATABASE_NAME }}" up
